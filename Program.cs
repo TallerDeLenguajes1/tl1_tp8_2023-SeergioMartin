@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+/*
 using EspacioTarea;
 
 internal class Program
@@ -135,4 +136,30 @@ internal class Program
         archivo.WriteLine("Sumario de horas trabajadas: "+horasTrabajadas+"");
         archivo.Close();
     }
+}
+*/
+
+string? path;
+
+System.Console.WriteLine("Ingrese (Path/Ruta) a buscar:");
+path = Console.ReadLine();
+
+if (!Directory.Exists(path))
+{
+    System.Console.WriteLine("No existe la ruta ingresada!!");
+}else{
+    List<string> listaArchivos = Directory.GetFiles(path).ToList();
+
+    System.Console.WriteLine("Listado de archivos");
+    foreach (var archivo in listaArchivos)
+    {
+        System.Console.WriteLine(archivo);
+    }
+    
+    StreamWriter indexador = new StreamWriter("index.csv");
+    for (int i = 0; i < listaArchivos.Count; i++)
+    {
+        indexador.WriteLine($"{i}, {Path.GetFileNameWithoutExtension(listaArchivos[i])}, {Path.GetExtension(listaArchivos[i])}");
+    }
+    indexador.Close();
 }
